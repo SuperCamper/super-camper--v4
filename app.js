@@ -1,37 +1,79 @@
-/* =========================
-   ELEMENTS
-========================= */
-
-const certificate = document.getElementById("certificate");
+// =========================
+// ELEMENTS
+// =========================
 
 const templateSelect = document.getElementById("templateSelect");
-
 const recipientName = document.getElementById("recipientName");
 const reason = document.getElementById("reason");
 const groupColor = document.getElementById("groupColor");
-
 const photoInput = document.getElementById("photoInput");
 
+const certificate = document.getElementById("certificate");
+
+const photoPreview = document.getElementById("photoPreview");
 const namePreview = document.getElementById("namePreview");
 const reasonPreview = document.getElementById("reasonPreview");
 const groupPreview = document.getElementById("groupPreview");
-const photoPreview = document.getElementById("photoPreview");
 
-/* =========================
-   LIVE TEXT
-========================= */
+// =========================
+// TEXT EDITOR
+// =========================
+
+const textTarget = document.getElementById("textTarget");
+
+const fontFamily = document.getElementById("fontFamily");
+const fontSize = document.getElementById("fontSize");
+
+const textColor = document.getElementById("textColor");
+const shadowColor = document.getElementById("shadowColor");
+
+const boldText = document.getElementById("boldText");
+const italicText = document.getElementById("italicText");
+
+const textX = document.getElementById("textX");
+const textY = document.getElementById("textY");
+
+// =========================
+// PHOTO EDITOR
+// =========================
+
+const photoSize = document.getElementById("photoSize");
+const photoX = document.getElementById("photoX");
+const photoY = document.getElementById("photoY");
+
+// =========================
+// DOWNLOAD
+// =========================
+
+const downloadPNG = document.getElementById("downloadPNG");
+const printBtn = document.getElementById("printBtn");
+
+// =========================
+// TEMPLATE
+// =========================
+
+templateSelect.addEventListener("change", () => {
+
+    certificate.style.backgroundImage =
+        `url("${templateSelect.value}")`;
+
+});
+
+// =========================
+// LIVE TEXT
+// =========================
 
 recipientName.addEventListener("input", () => {
 
     namePreview.textContent =
-        recipientName.value || "ឈ្មោះ";
+        recipientName.value || "ឈ្មោះអ្នកទទួល";
 
 });
 
 reason.addEventListener("input", () => {
 
     reasonPreview.textContent =
-        reason.value || "មូលហេតុ";
+        reason.value || "មូលហេតុទទួលវិញ្ញាបនបត្រ";
 
 });
 
@@ -42,20 +84,9 @@ groupColor.addEventListener("input", () => {
 
 });
 
-/* =========================
-   TEMPLATE
-========================= */
-
-templateSelect.addEventListener("change", () => {
-
-    certificate.style.backgroundImage =
-        `url("${templateSelect.value}")`;
-
-});
-
-/* =========================
-   PHOTO UPLOAD
-========================= */
+// =========================
+// PHOTO UPLOAD
+// =========================
 
 photoInput.addEventListener("change", e => {
 
@@ -75,262 +106,262 @@ photoInput.addEventListener("change", e => {
 
 });
 
-/* =========================
-   TEXT EDITOR
-========================= */
+// =========================
+// GET SELECTED TEXT
+// =========================
 
-const targetElement =
-document.getElementById("targetElement");
+function getSelectedTextElement() {
 
-const fontFamily =
-document.getElementById("fontFamily");
+    const target = textTarget.value;
 
-const fontSize =
-document.getElementById("fontSize");
+    if (target === "name")
+        return namePreview;
 
-const textColor =
-document.getElementById("textColor");
+    if (target === "reason")
+        return reasonPreview;
 
-const shadowColor =
-document.getElementById("shadowColor");
-
-const boldToggle =
-document.getElementById("boldToggle");
-
-const italicToggle =
-document.getElementById("italicToggle");
-
-const posX =
-document.getElementById("posX");
-
-const posY =
-document.getElementById("posY");
-
-function currentElement() {
-
-    return document.getElementById(
-        targetElement.value
-    );
+    return groupPreview;
 
 }
 
-/* Font */
+// =========================
+// FONT FAMILY
+// =========================
 
 fontFamily.addEventListener("change", () => {
 
-    currentElement().style.fontFamily =
+    getSelectedTextElement().style.fontFamily =
         fontFamily.value;
 
 });
 
-/* Size */
+// =========================
+// FONT SIZE
+// =========================
 
 fontSize.addEventListener("input", () => {
 
-    currentElement().style.fontSize =
+    getSelectedTextElement().style.fontSize =
         fontSize.value + "px";
 
 });
 
-/* Color */
+// =========================
+// TEXT COLOR
+// =========================
 
 textColor.addEventListener("input", () => {
 
-    currentElement().style.color =
+    getSelectedTextElement().style.color =
         textColor.value;
 
 });
 
-/* Shadow */
+// =========================
+// SHADOW
+// =========================
 
 shadowColor.addEventListener("input", () => {
 
-    currentElement().style.textShadow =
-        `2px 2px 8px ${shadowColor.value}`;
+    getSelectedTextElement().style.textShadow =
+        `0 0 10px ${shadowColor.value}`;
 
 });
 
-/* Bold */
+// =========================
+// BOLD
+// =========================
 
-boldToggle.addEventListener("change", () => {
+boldText.addEventListener("change", () => {
 
-    currentElement().style.fontWeight =
-        boldToggle.checked ? "700" : "400";
-
-});
-
-/* Italic */
-
-italicToggle.addEventListener("change", () => {
-
-    currentElement().style.fontStyle =
-        italicToggle.checked ? "italic" : "normal";
+    getSelectedTextElement().style.fontWeight =
+        boldText.checked ? "700" : "400";
 
 });
 
-/* X Position */
+// =========================
+// ITALIC
+// =========================
 
-posX.addEventListener("input", () => {
+italicText.addEventListener("change", () => {
 
-    const el = currentElement();
-
-    el.style.left = posX.value + "px";
-    el.style.transform = "translateX(-50%)";
-
-});
-
-/* Y Position */
-
-posY.addEventListener("input", () => {
-
-    currentElement().style.top =
-        posY.value + "px";
+    getSelectedTextElement().style.fontStyle =
+        italicText.checked ? "italic" : "normal";
 
 });
 
-/* =========================
-   PHOTO SIZE
-========================= */
+// =========================
+// TEXT POSITION
+// =========================
 
-const photoSize =
-document.getElementById("photoSize");
+textX.addEventListener("input", () => {
+
+    const el = getSelectedTextElement();
+
+    el.style.left = textX.value + "px";
+
+});
+
+textY.addEventListener("input", () => {
+
+    const el = getSelectedTextElement();
+
+    el.style.top = textY.value + "px";
+
+});
+
+// =========================
+// PHOTO SIZE
+// =========================
 
 photoSize.addEventListener("input", () => {
 
-    const size = photoSize.value;
-
     photoPreview.style.width =
-        size + "px";
+        photoSize.value + "px";
 
     photoPreview.style.height =
-        (size * 1.33) + "px";
+        photoSize.value * 1.3 + "px";
 
 });
 
-/* =========================
-   DRAG & DROP
-========================= */
+// =========================
+// PHOTO POSITION
+// =========================
 
-function makeDraggable(element){
+photoX.addEventListener("input", () => {
 
-    let isDragging = false;
-    let offsetX = 0;
-    let offsetY = 0;
+    photoPreview.style.left =
+        photoX.value + "px";
 
-    element.addEventListener("mousedown",(e)=>{
+});
 
-        isDragging = true;
+photoY.addEventListener("input", () => {
 
-        const rect =
+    photoPreview.style.top =
+        photoY.value + "px";
+
+});
+
+// =========================
+// DRAG PHOTO
+// =========================
+
+let draggingPhoto = false;
+
+photoPreview.addEventListener("mousedown", () => {
+
+    draggingPhoto = true;
+
+});
+
+document.addEventListener("mouseup", () => {
+
+    draggingPhoto = false;
+
+});
+
+document.addEventListener("mousemove", e => {
+
+    if (!draggingPhoto) return;
+
+    const rect =
         certificate.getBoundingClientRect();
 
-        offsetX =
-        e.clientX -
-        element.offsetLeft -
-        rect.left;
+    const x =
+        e.clientX - rect.left;
 
-        offsetY =
-        e.clientY -
-        element.offsetTop -
-        rect.top;
+    const y =
+        e.clientY - rect.top;
+
+    photoPreview.style.left =
+        x + "px";
+
+    photoPreview.style.top =
+        y + "px";
+
+});
+
+// =========================
+// DRAG TEXT
+// =========================
+
+let activeText = null;
+
+[namePreview, reasonPreview, groupPreview]
+.forEach(el => {
+
+    el.addEventListener("mousedown", () => {
+
+        activeText = el;
 
     });
 
-    document.addEventListener("mousemove",(e)=>{
+});
 
-        if(!isDragging) return;
+document.addEventListener("mouseup", () => {
 
-        const rect =
+    activeText = null;
+
+});
+
+document.addEventListener("mousemove", e => {
+
+    if (!activeText) return;
+
+    const rect =
         certificate.getBoundingClientRect();
 
-        element.style.left =
-        (e.clientX - rect.left - offsetX) + "px";
+    const x =
+        e.clientX - rect.left;
 
-        element.style.top =
-        (e.clientY - rect.top - offsetY) + "px";
+    const y =
+        e.clientY - rect.top;
 
-        element.style.transform =
-        "none";
+    activeText.style.left =
+        x + "px";
 
-    });
+    activeText.style.top =
+        y + "px";
 
-    document.addEventListener("mouseup",()=>{
+});
 
-        isDragging = false;
+// =========================
+// DOWNLOAD PNG
+// =========================
 
-    });
-
-}
-
-makeDraggable(photoPreview);
-makeDraggable(namePreview);
-makeDraggable(reasonPreview);
-makeDraggable(groupPreview);
-
-/* =========================
-   DOWNLOAD PNG
-========================= */
-
-document
-.getElementById("downloadPNG")
-.addEventListener("click", async ()=>{
+downloadPNG.addEventListener("click", async () => {
 
     const canvas =
-    await html2canvas(certificate,{
-        scale:2
-    });
+        await html2canvas(certificate, {
+            scale: 3
+        });
 
     const link =
-    document.createElement("a");
+        document.createElement("a");
 
     link.download =
-    "certificate.png";
+        "certificate.png";
 
     link.href =
-    canvas.toDataURL("image/png");
+        canvas.toDataURL("image/png");
 
     link.click();
 
 });
 
-/* =========================
-   PRINT
-========================= */
+// =========================
+// PRINT
+// =========================
 
-document
-.getElementById("printBtn")
-.addEventListener("click", async ()=>{
+printBtn.addEventListener("click", () => {
 
-    const canvas =
-    await html2canvas(certificate,{
-        scale:2
-    });
-
-    const image =
-    canvas.toDataURL("image/png");
-
-    const win =
-    window.open("");
-
-    win.document.write(`
-        <html>
-        <head>
-            <title>Print</title>
-        </head>
-        <body style="margin:0;text-align:center;">
-            <img
-            src="${image}"
-            style="width:100%;">
-        </body>
-        </html>
-    `);
-
-    win.document.close();
-
-    win.onload = () => {
-
-        win.print();
-
-    };
+    window.print();
 
 });
+
+// =========================
+// DEFAULT TEMPLATE
+// =========================
+
+certificate.style.backgroundImage =
+    `url("${templateSelect.value}")`;
