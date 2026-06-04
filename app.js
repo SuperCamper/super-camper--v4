@@ -1,25 +1,28 @@
+```javascript
 // =========================
 // ELEMENTS
 // =========================
 
+const certificate = document.getElementById("certificate");
+
 const templateSelect = document.getElementById("templateSelect");
+
 const recipientName = document.getElementById("recipientName");
 const reason = document.getElementById("reason");
 const groupColor = document.getElementById("groupColor");
+
 const photoInput = document.getElementById("photoInput");
 
-const certificate = document.getElementById("certificate");
-
-const photoPreview = document.getElementById("photoPreview");
 const namePreview = document.getElementById("namePreview");
 const reasonPreview = document.getElementById("reasonPreview");
 const groupPreview = document.getElementById("groupPreview");
+const photoPreview = document.getElementById("photoPreview");
 
 // =========================
 // TEXT EDITOR
 // =========================
 
-const textTarget = document.getElementById("textTarget");
+const targetText = document.getElementById("targetText");
 
 const fontFamily = document.getElementById("fontFamily");
 const fontSize = document.getElementById("fontSize");
@@ -40,16 +43,25 @@ const textY = document.getElementById("textY");
 const photoSize = document.getElementById("photoSize");
 const photoX = document.getElementById("photoX");
 const photoY = document.getElementById("photoY");
+const photoRadius = document.getElementById("photoRadius");
 
 // =========================
-// DOWNLOAD
+// EXPORT
 // =========================
 
 const downloadPNG = document.getElementById("downloadPNG");
+const downloadPDF = document.getElementById("downloadPDF");
 const printBtn = document.getElementById("printBtn");
 
 // =========================
-// TEMPLATE
+// DEFAULT TEMPLATE
+// =========================
+
+certificate.style.backgroundImage =
+    `url("${templateSelect.value}")`;
+
+// =========================
+// CHANGE TEMPLATE
 // =========================
 
 templateSelect.addEventListener("change", () => {
@@ -107,21 +119,25 @@ photoInput.addEventListener("change", e => {
 });
 
 // =========================
-// GET SELECTED TEXT
+// SELECT TEXT
 // =========================
 
-function getSelectedTextElement() {
+function selectedElement() {
 
-    const target = textTarget.value;
+    switch (targetText.value) {
 
-    if (target === "name")
-        return namePreview;
+        case "name":
+            return namePreview;
 
-    if (target === "reason")
-        return reasonPreview;
+        case "reason":
+            return reasonPreview;
 
-    return groupPreview;
+        case "group":
+            return groupPreview;
 
+        default:
+            return namePreview;
+    }
 }
 
 // =========================
@@ -130,7 +146,7 @@ function getSelectedTextElement() {
 
 fontFamily.addEventListener("change", () => {
 
-    getSelectedTextElement().style.fontFamily =
+    selectedElement().style.fontFamily =
         fontFamily.value;
 
 });
@@ -141,7 +157,7 @@ fontFamily.addEventListener("change", () => {
 
 fontSize.addEventListener("input", () => {
 
-    getSelectedTextElement().style.fontSize =
+    selectedElement().style.fontSize =
         fontSize.value + "px";
 
 });
@@ -152,19 +168,19 @@ fontSize.addEventListener("input", () => {
 
 textColor.addEventListener("input", () => {
 
-    getSelectedTextElement().style.color =
+    selectedElement().style.color =
         textColor.value;
 
 });
 
 // =========================
-// SHADOW
+// SHADOW COLOR
 // =========================
 
 shadowColor.addEventListener("input", () => {
 
-    getSelectedTextElement().style.textShadow =
-        `0 0 10px ${shadowColor.value}`;
+    selectedElement().style.textShadow =
+        `0 3px 8px ${shadowColor.value}`;
 
 });
 
@@ -174,7 +190,7 @@ shadowColor.addEventListener("input", () => {
 
 boldText.addEventListener("change", () => {
 
-    getSelectedTextElement().style.fontWeight =
+    selectedElement().style.fontWeight =
         boldText.checked ? "700" : "400";
 
 });
@@ -185,7 +201,7 @@ boldText.addEventListener("change", () => {
 
 italicText.addEventListener("change", () => {
 
-    getSelectedTextElement().style.fontStyle =
+    selectedElement().style.fontStyle =
         italicText.checked ? "italic" : "normal";
 
 });
@@ -196,17 +212,15 @@ italicText.addEventListener("change", () => {
 
 textX.addEventListener("input", () => {
 
-    const el = getSelectedTextElement();
-
-    el.style.left = textX.value + "px";
+    selectedElement().style.left =
+        textX.value + "px";
 
 });
 
 textY.addEventListener("input", () => {
 
-    const el = getSelectedTextElement();
-
-    el.style.top = textY.value + "px";
+    selectedElement().style.top =
+        textY.value + "px";
 
 });
 
@@ -216,16 +230,18 @@ textY.addEventListener("input", () => {
 
 photoSize.addEventListener("input", () => {
 
+    const width = parseInt(photoSize.value);
+
     photoPreview.style.width =
-        photoSize.value + "px";
+        width + "px";
 
     photoPreview.style.height =
-        photoSize.value * 1.3 + "px";
+        Math.round(width * 1.33) + "px";
 
 });
 
 // =========================
-// PHOTO POSITION
+// PHOTO X
 // =========================
 
 photoX.addEventListener("input", () => {
@@ -235,6 +251,10 @@ photoX.addEventListener("input", () => {
 
 });
 
+// =========================
+// PHOTO Y
+// =========================
+
 photoY.addEventListener("input", () => {
 
     photoPreview.style.top =
@@ -243,87 +263,73 @@ photoY.addEventListener("input", () => {
 });
 
 // =========================
-// DRAG PHOTO
+// PHOTO RADIUS
 // =========================
 
-let draggingPhoto = false;
+photoRadius.addEventListener("input", () => {
 
-photoPreview.addEventListener("mousedown", () => {
-
-    draggingPhoto = true;
-
-});
-
-document.addEventListener("mouseup", () => {
-
-    draggingPhoto = false;
-
-});
-
-document.addEventListener("mousemove", e => {
-
-    if (!draggingPhoto) return;
-
-    const rect =
-        certificate.getBoundingClientRect();
-
-    const x =
-        e.clientX - rect.left;
-
-    const y =
-        e.clientY - rect.top;
-
-    photoPreview.style.left =
-        x + "px";
-
-    photoPreview.style.top =
-        y + "px";
+    photoPreview.style.borderRadius =
+        photoRadius.value + "px";
 
 });
 
 // =========================
-// DRAG TEXT
+// DRAG SYSTEM
 // =========================
 
-let activeText = null;
+function makeDraggable(el){
 
-[namePreview, reasonPreview, groupPreview]
-.forEach(el => {
+    let isDragging = false;
 
-    el.addEventListener("mousedown", () => {
+    let offsetX = 0;
+    let offsetY = 0;
 
-        activeText = el;
+    el.addEventListener("mousedown", e => {
+
+        isDragging = true;
+
+        const rect = el.getBoundingClientRect();
+
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
 
     });
 
-});
+    document.addEventListener("mousemove", e => {
 
-document.addEventListener("mouseup", () => {
+        if(!isDragging) return;
 
-    activeText = null;
+        const parentRect =
+            certificate.getBoundingClientRect();
 
-});
+        const x =
+            e.clientX -
+            parentRect.left -
+            offsetX;
 
-document.addEventListener("mousemove", e => {
+        const y =
+            e.clientY -
+            parentRect.top -
+            offsetY;
 
-    if (!activeText) return;
+        el.style.left = x + "px";
+        el.style.top = y + "px";
 
-    const rect =
-        certificate.getBoundingClientRect();
+        el.style.transform = "none";
 
-    const x =
-        e.clientX - rect.left;
+    });
 
-    const y =
-        e.clientY - rect.top;
+    document.addEventListener("mouseup", () => {
 
-    activeText.style.left =
-        x + "px";
+        isDragging = false;
 
-    activeText.style.top =
-        y + "px";
+    });
+}
 
-});
+makeDraggable(photoPreview);
+makeDraggable(namePreview);
+makeDraggable(reasonPreview);
+makeDraggable(groupPreview);
 
 // =========================
 // DOWNLOAD PNG
@@ -332,8 +338,8 @@ document.addEventListener("mousemove", e => {
 downloadPNG.addEventListener("click", async () => {
 
     const canvas =
-        await html2canvas(certificate, {
-            scale: 3
+        await html2canvas(certificate,{
+            scale:3
         });
 
     const link =
@@ -350,6 +356,39 @@ downloadPNG.addEventListener("click", async () => {
 });
 
 // =========================
+// DOWNLOAD PDF
+// =========================
+
+downloadPDF.addEventListener("click", async () => {
+
+    const canvas =
+        await html2canvas(certificate,{
+            scale:3
+        });
+
+    const imgData =
+        canvas.toDataURL("image/png");
+
+    const { jsPDF } =
+        window.jspdf;
+
+    const pdf =
+        new jsPDF("p","mm","a4");
+
+    pdf.addImage(
+        imgData,
+        "PNG",
+        0,
+        0,
+        210,
+        297
+    );
+
+    pdf.save("certificate.pdf");
+
+});
+
+// =========================
 // PRINT
 // =========================
 
@@ -358,10 +397,4 @@ printBtn.addEventListener("click", () => {
     window.print();
 
 });
-
-// =========================
-// DEFAULT TEMPLATE
-// =========================
-
-certificate.style.backgroundImage =
-    `url("${templateSelect.value}")`;
+```
