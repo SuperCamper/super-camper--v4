@@ -1,1 +1,168 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Super Camper V4</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Hanuman:wght@400;700&family=Koulen&family=Moul&family=Bayon&family=Siemreap&family=Kantumruy+Pro:wght@100..700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <h2>🏕️ Super Camper V4</h2>
+
+        <div class="section">
+
+            <label>Template</label>
+
+            <select id="templateSelect">
+                <option value="ក្រហម.png">ក្រហម</option>
+                <option value="បៃតង.png">បៃតង</option>
+                <option value="លឿង.png">លឿង</option>
+                <option value="ស្វាយ.png">ស្វាយ</option>
+                <option value="ផ្កាឈូក.png">ផ្កាឈូក</option>
+                <option value="ខៀវ.png">ខៀវ</option>
+            </select>
+
+        </div>
+
+        <div class="section">
+
+            <label>ឈ្មោះ</label>
+            <input type="text" id="recipientName">
+
+            <label>មូលហេតុ</label>
+            <textarea id="reason" rows="4"></textarea>
+
+            <label>ក្រុមពណ៌</label>
+            <input type="text" id="groupColor">
+
+            <label>រូបថត</label>
+            <input type="file" id="photoInput" accept="image/*">
+
+        </div>
+
+        <hr>
+
+        <h3>Text Editor</h3>
+
+        <label>ជ្រើសអត្ថបទ</label>
+
+        <select id="targetElement">
+            <option value="namePreview">ឈ្មោះ</option>
+            <option value="reasonPreview">មូលហេតុ</option>
+            <option value="groupPreview">ក្រុម</option>
+        </select>
+
+        <label>Font</label>
+
+        <select id="fontFamily">
+            <option>Battambang</option>
+            <option>Kantumruy Pro</option>
+            <option>Hanuman</option>
+            <option>Koulen</option>
+            <option>Moul</option>
+            <option>Bayon</option>
+            <option>Siemreap</option>
+            <option>Arial</option>
+            <option>Georgia</option>
+            <option>Verdana</option>
+        </select>
+
+        <label>Font Size</label>
+        <input type="range" id="fontSize" min="20" max="100" value="50">
+
+        <label>Text Color</label>
+        <input type="color" id="textColor" value="#ffffff">
+
+        <label>Shadow Color</label>
+        <input type="color" id="shadowColor" value="#000000">
+
+        <label>
+            <input type="checkbox" id="boldToggle">
+            Bold
+        </label>
+
+        <label>
+            <input type="checkbox" id="italicToggle">
+            Italic
+        </label>
+
+        <label>X Position</label>
+        <input type="range" id="posX" min="0" max="794" value="397">
+
+        <label>Y Position</label>
+        <input type="range" id="posY" min="0" max="1123" value="500">
+
+        <hr>
+
+        <h3>Photo Editor</h3>
+
+        <label>Photo Size</label>
+        <input type="range" id="photoSize" min="80" max="300" value="140">
+
+        <button id="downloadPNG">
+            Download PNG
+        </button>
+
+        <button id="printBtn">
+            Print
+        </button>
+
+    </div>
+
+    <!-- PREVIEW -->
+
+    <div class="preview-wrapper">
+
+        <div id="certificate">
+
+            <img
+                id="photoPreview"
+                class="photo-preview"
+                alt="photo">
+
+            <div
+                id="namePreview"
+                class="editable">
+                ឈ្មោះ
+            </div>
+
+            <div
+                id="reasonPreview"
+                class="editable">
+                មូលហេតុ
+            </div>
+
+            <div
+                id="groupPreview"
+                class="editable">
+                ក្រុម
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>
