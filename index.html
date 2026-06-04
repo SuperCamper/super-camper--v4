@@ -2,72 +2,94 @@
 <!DOCTYPE html>
 <html lang="km">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Super Camper V6</title>
+<title>Super Camper Studio V7</title>
+
+<link rel="stylesheet" href="style.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Koulen&family=Moul&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="app">
+<!-- ==================================
+     TOP TOOLBAR
+=================================== -->
 
-    <!-- LEFT PANEL -->
+<header class="toolbar">
 
-    <aside class="left-panel">
+    <div class="toolbar-left">
 
-        <h2>🏕️ Super Camper</h2>
+        <h1>🏕️ Super Camper Studio V7</h1>
 
-        <div class="card">
+    </div>
 
-            <h3>Template</h3>
+    <div class="toolbar-right">
 
-            <label>ជ្រើស Template</label>
+        <button id="undoBtn">↶ Undo</button>
+
+        <button id="redoBtn">↷ Redo</button>
+
+        <button id="saveBtn">💾 Save</button>
+
+        <button id="loadBtn">📂 Load</button>
+
+        <button id="downloadPNG">🖼 PNG</button>
+
+        <button id="downloadPDF">📄 PDF</button>
+
+        <button id="printBtn">🖨 Print</button>
+
+    </div>
+
+</header>
+
+<!-- ==================================
+     MAIN LAYOUT
+=================================== -->
+
+<div class="studio-layout">
+
+    <!-- ==========================
+         LEFT SIDEBAR
+    =========================== -->
+
+    <aside class="sidebar">
+
+        <div class="panel-card">
+
+            <h3>🎨 Templates</h3>
 
             <select id="templateSelect">
 
-                <option value="ក្រហម.png">ក្រហម</option>
-                <option value="បៃតង.png">បៃតង</option>
-                <option value="លឿង.png">លឿង</option>
-                <option value="ស្វាយ.png">ស្វាយ</option>
-                <option value="ផ្កាឈូក.png">ផ្កាឈូក</option>
-                <option value="ខៀវ.png">ខៀវ</option>
+                <option value="templates/ក្រហម.png">ក្រហម</option>
+                <option value="templates/បៃតង.png">បៃតង</option>
+                <option value="templates/លឿង.png">លឿង</option>
+                <option value="templates/ស្វាយ.png">ស្វាយ</option>
+                <option value="templates/ផ្កាឈូក.png">ផ្កាឈូក</option>
+                <option value="templates/ខៀវ.png">ខៀវ</option>
 
             </select>
 
         </div>
 
-        <div class="card">
+        <div class="panel-card">
 
-            <h3>ព័ត៌មានអ្នកទទួល</h3>
+            <h3>🖼 Background</h3>
 
-            <label>ឈ្មោះ</label>
             <input
-                type="text"
-                id="recipientName"
-                placeholder="បញ្ចូលឈ្មោះ">
-
-            <label>មូលហេតុ</label>
-            <textarea
-                id="reason"
-                rows="4"
-                placeholder="បញ្ចូលមូលហេតុ"></textarea>
-
-            <label>ក្រុម</label>
-            <input
-                type="text"
-                id="groupColor"
-                placeholder="ឧ. ក្រុមបៃតង">
+                type="file"
+                id="backgroundUpload"
+                accept="image/png,image/jpeg,image/jpg">
 
         </div>
 
-        <div class="card">
+        <div class="panel-card">
 
-            <h3>រូបថត</h3>
+            <h3>📷 Photo</h3>
 
             <input
                 type="file"
@@ -76,11 +98,49 @@
 
         </div>
 
+        <div class="panel-card">
+
+            <h3>📝 Text</h3>
+
+            <input
+                type="text"
+                id="recipientName"
+                placeholder="ឈ្មោះអ្នកទទួល">
+
+            <textarea
+                id="reason"
+                rows="4"
+                placeholder="មូលហេតុ"></textarea>
+
+            <input
+                type="text"
+                id="groupColor"
+                placeholder="ក្រុម">
+
+        </div>
+
+        <div class="panel-card">
+
+            <h3>📚 Layers</h3>
+
+            <ul class="layers-list">
+
+                <li>Name</li>
+                <li>Reason</li>
+                <li>Group</li>
+                <li>Photo</li>
+
+            </ul>
+
+        </div>
+
     </aside>
 
-    <!-- CENTER -->
+    <!-- ==========================
+         CENTER CANVAS
+    =========================== -->
 
-    <main class="canvas-area">
+    <main class="canvas-wrapper">
 
         <div id="certificate">
 
@@ -117,55 +177,35 @@
 
     </main>
 
-    <!-- RIGHT PANEL -->
+    <!-- ==========================
+         RIGHT PROPERTIES
+    =========================== -->
 
-    <aside class="right-panel">
+    <aside class="properties">
 
-        <div class="card">
+        <div class="panel-card">
 
-            <h3>📝 Text Editor</h3>
+            <h3>🔧 Text Settings</h3>
 
-            <label>កែអត្ថបទ</label>
+            <label>Selected Text</label>
 
             <select id="targetText">
 
-                <option value="name">
-                    ឈ្មោះ
-                </option>
-
-                <option value="reason">
-                    មូលហេតុ
-                </option>
-
-                <option value="group">
-                    ក្រុម
-                </option>
+                <option value="name">Name</option>
+                <option value="reason">Reason</option>
+                <option value="group">Group</option>
 
             </select>
 
-            <label>Font</label>
+            <label>Font Family</label>
 
             <select id="fontFamily">
 
-                <option value="Battambang">
-                    Battambang
-                </option>
-
-                <option value="Koulen">
-                    Koulen
-                </option>
-
-                <option value="Moul">
-                    Moul
-                </option>
-
-                <option value="Arial">
-                    Arial
-                </option>
-
-                <option value="Tahoma">
-                    Tahoma
-                </option>
+                <option value="Battambang">Battambang</option>
+                <option value="Koulen">Koulen</option>
+                <option value="Moul">Moul</option>
+                <option value="Arial">Arial</option>
+                <option value="Tahoma">Tahoma</option>
 
             </select>
 
@@ -175,8 +215,8 @@
                 type="range"
                 id="fontSize"
                 min="12"
-                max="100"
-                value="40">
+                max="120"
+                value="48">
 
             <label>Text Color</label>
 
@@ -192,49 +232,25 @@
                 id="shadowColor"
                 value="#000000">
 
-            <div class="check-row">
+            <div class="checkbox-row">
 
                 <label>
-                    <input
-                        type="checkbox"
-                        id="boldText">
-
+                    <input type="checkbox" id="boldText">
                     Bold
                 </label>
 
                 <label>
-                    <input
-                        type="checkbox"
-                        id="italicText">
-
+                    <input type="checkbox" id="italicText">
                     Italic
                 </label>
 
             </div>
 
-            <label>X Position</label>
-
-            <input
-                type="range"
-                id="textX"
-                min="0"
-                max="700"
-                value="300">
-
-            <label>Y Position</label>
-
-            <input
-                type="range"
-                id="textY"
-                min="0"
-                max="1100"
-                value="500">
-
         </div>
 
-        <div class="card">
+        <div class="panel-card">
 
-            <h3>📷 Photo Editor</h3>
+            <h3>📷 Photo Settings</h3>
 
             <label>Photo Size</label>
 
@@ -245,24 +261,6 @@
                 max="400"
                 value="140">
 
-            <label>Photo X</label>
-
-            <input
-                type="range"
-                id="photoX"
-                min="0"
-                max="700"
-                value="330">
-
-            <label>Photo Y</label>
-
-            <input
-                type="range"
-                id="photoY"
-                min="0"
-                max="1100"
-                value="280">
-
             <label>Border Radius</label>
 
             <input
@@ -270,25 +268,31 @@
                 id="photoRadius"
                 min="0"
                 max="100"
-                value="10">
+                value="12">
 
         </div>
 
-        <div class="card">
+        <div class="panel-card">
 
-            <h3>🚀 Export</h3>
+            <h3>📍 Position</h3>
 
-            <button id="downloadPNG">
-                Download PNG
-            </button>
+            <label>X Position</label>
 
-            <button id="downloadPDF">
-                Download PDF
-            </button>
+            <input
+                type="range"
+                id="textX"
+                min="0"
+                max="794"
+                value="250">
 
-            <button id="printBtn">
-                Print
-            </button>
+            <label>Y Position</label>
+
+            <input
+                type="range"
+                id="textY"
+                min="0"
+                max="1123"
+                value="500">
 
         </div>
 
