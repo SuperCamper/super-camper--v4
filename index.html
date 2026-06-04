@@ -5,127 +5,82 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Super Camper V5</title>
-
-<link rel="stylesheet" href="style.css">
+<title>Super Camper V6</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Koulen&family=Moul&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-    <!-- =========================
-         LEFT PANEL
-    ========================== -->
+    <!-- LEFT PANEL -->
 
-    <div class="left-panel">
+    <aside class="left-panel">
 
-        <h2>📝 Text Editor</h2>
+        <h2>🏕️ Super Camper</h2>
 
-        <label>ជ្រើស Template</label>
-        <select id="templateSelect">
-            <option value="ក្រហម.png">ក្រហម</option>
-            <option value="បៃតង.png">បៃតង</option>
-            <option value="លឿង.png">លឿង</option>
-            <option value="ស្វាយ.png">ស្វាយ</option>
-            <option value="ផ្កាឈូក.png">ផ្កាឈូក</option>
-            <option value="ខៀវ.png">ខៀវ</option>
-        </select>
+        <div class="card">
 
-        <label>ឈ្មោះអ្នកទទួល</label>
-        <input
-            type="text"
-            id="recipientName"
-            placeholder="បញ្ចូលឈ្មោះ">
+            <h3>Template</h3>
 
-        <label>មូលហេតុទទួលវិញ្ញាបនបត្រ</label>
-        <textarea
-            id="reason"
-            rows="4"
-            placeholder="បញ្ចូលមូលហេតុ"></textarea>
+            <label>ជ្រើស Template</label>
 
-        <label>ពណ៌ក្រុម</label>
-        <input
-            type="text"
-            id="groupColor"
-            placeholder="ឧ. ក្រុមបៃតង">
+            <select id="templateSelect">
 
-        <hr>
+                <option value="ក្រហម.png">ក្រហម</option>
+                <option value="បៃតង.png">បៃតង</option>
+                <option value="លឿង.png">លឿង</option>
+                <option value="ស្វាយ.png">ស្វាយ</option>
+                <option value="ផ្កាឈូក.png">ផ្កាឈូក</option>
+                <option value="ខៀវ.png">ខៀវ</option>
 
-        <label>កែសម្រួលអត្ថបទ</label>
+            </select>
 
-        <select id="textTarget">
-            <option value="name">ឈ្មោះ</option>
-            <option value="reason">មូលហេតុ</option>
-            <option value="group">ក្រុម</option>
-        </select>
-
-        <label>Font</label>
-        <select id="fontFamily">
-            <option value="Battambang">Battambang</option>
-            <option value="Koulen">Koulen</option>
-            <option value="Moul">Moul</option>
-        </select>
-
-        <label>Font Size</label>
-        <input
-            type="range"
-            id="fontSize"
-            min="12"
-            max="100"
-            value="48">
-
-        <label>Text Color</label>
-        <input
-            type="color"
-            id="textColor"
-            value="#ffffff">
-
-        <label>Shadow Color</label>
-        <input
-            type="color"
-            id="shadowColor"
-            value="#000000">
-
-        <div class="check-group">
-            <label>
-                <input type="checkbox" id="boldToggle">
-                Bold
-            </label>
         </div>
 
-        <div class="check-group">
-            <label>
-                <input type="checkbox" id="italicToggle">
-                Italic
-            </label>
+        <div class="card">
+
+            <h3>ព័ត៌មានអ្នកទទួល</h3>
+
+            <label>ឈ្មោះ</label>
+            <input
+                type="text"
+                id="recipientName"
+                placeholder="បញ្ចូលឈ្មោះ">
+
+            <label>មូលហេតុ</label>
+            <textarea
+                id="reason"
+                rows="4"
+                placeholder="បញ្ចូលមូលហេតុ"></textarea>
+
+            <label>ក្រុម</label>
+            <input
+                type="text"
+                id="groupColor"
+                placeholder="ឧ. ក្រុមបៃតង">
+
         </div>
 
-        <label>X Position</label>
-        <input
-            type="range"
-            id="textX"
-            min="0"
-            max="100"
-            value="50">
+        <div class="card">
 
-        <label>Y Position</label>
-        <input
-            type="range"
-            id="textY"
-            min="0"
-            max="1100"
-            value="500">
+            <h3>រូបថត</h3>
 
-    </div>
+            <input
+                type="file"
+                id="photoInput"
+                accept="image/*">
 
-    <!-- =========================
-         CENTER PREVIEW
-    ========================== -->
+        </div>
 
-    <div class="preview-wrapper">
+    </aside>
+
+    <!-- CENTER -->
+
+    <main class="canvas-area">
 
         <div id="certificate">
 
@@ -137,80 +92,207 @@
             <div
                 id="namePreview"
                 class="name-preview draggable">
+
                 ឈ្មោះអ្នកទទួល
+
             </div>
 
             <div
                 id="reasonPreview"
                 class="reason-preview draggable">
+
                 មូលហេតុទទួលវិញ្ញាបនបត្រ
+
             </div>
 
             <div
                 id="groupPreview"
                 class="group-preview draggable">
+
                 ក្រុម
+
             </div>
 
         </div>
 
-    </div>
+    </main>
 
-    <!-- =========================
-         RIGHT PANEL
-    ========================== -->
+    <!-- RIGHT PANEL -->
 
-    <div class="right-panel">
+    <aside class="right-panel">
 
-        <h2>📷 Photo Editor</h2>
+        <div class="card">
 
-        <label>Upload Photo</label>
-        <input
-            type="file"
-            id="photoInput"
-            accept="image/*">
+            <h3>📝 Text Editor</h3>
 
-        <label>Photo Size</label>
-        <input
-            type="range"
-            id="photoSize"
-            min="80"
-            max="400"
-            value="150">
+            <label>កែអត្ថបទ</label>
 
-        <label>Photo X</label>
-        <input
-            type="range"
-            id="photoX"
-            min="0"
-            max="700"
-            value="330">
+            <select id="targetText">
 
-        <label>Photo Y</label>
-        <input
-            type="range"
-            id="photoY"
-            min="0"
-            max="1000"
-            value="300">
+                <option value="name">
+                    ឈ្មោះ
+                </option>
 
-        <hr>
+                <option value="reason">
+                    មូលហេតុ
+                </option>
 
-        <h2>⬇ Export</h2>
+                <option value="group">
+                    ក្រុម
+                </option>
 
-        <button id="downloadPNG">
-            Download PNG
-        </button>
+            </select>
 
-        <button id="downloadPDF">
-            Download PDF
-        </button>
+            <label>Font</label>
 
-        <button onclick="window.print()">
-            Print
-        </button>
+            <select id="fontFamily">
 
-    </div>
+                <option value="Battambang">
+                    Battambang
+                </option>
+
+                <option value="Koulen">
+                    Koulen
+                </option>
+
+                <option value="Moul">
+                    Moul
+                </option>
+
+                <option value="Arial">
+                    Arial
+                </option>
+
+                <option value="Tahoma">
+                    Tahoma
+                </option>
+
+            </select>
+
+            <label>Font Size</label>
+
+            <input
+                type="range"
+                id="fontSize"
+                min="12"
+                max="100"
+                value="40">
+
+            <label>Text Color</label>
+
+            <input
+                type="color"
+                id="textColor"
+                value="#ffffff">
+
+            <label>Shadow Color</label>
+
+            <input
+                type="color"
+                id="shadowColor"
+                value="#000000">
+
+            <div class="check-row">
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="boldText">
+
+                    Bold
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="italicText">
+
+                    Italic
+                </label>
+
+            </div>
+
+            <label>X Position</label>
+
+            <input
+                type="range"
+                id="textX"
+                min="0"
+                max="700"
+                value="300">
+
+            <label>Y Position</label>
+
+            <input
+                type="range"
+                id="textY"
+                min="0"
+                max="1100"
+                value="500">
+
+        </div>
+
+        <div class="card">
+
+            <h3>📷 Photo Editor</h3>
+
+            <label>Photo Size</label>
+
+            <input
+                type="range"
+                id="photoSize"
+                min="50"
+                max="400"
+                value="140">
+
+            <label>Photo X</label>
+
+            <input
+                type="range"
+                id="photoX"
+                min="0"
+                max="700"
+                value="330">
+
+            <label>Photo Y</label>
+
+            <input
+                type="range"
+                id="photoY"
+                min="0"
+                max="1100"
+                value="280">
+
+            <label>Border Radius</label>
+
+            <input
+                type="range"
+                id="photoRadius"
+                min="0"
+                max="100"
+                value="10">
+
+        </div>
+
+        <div class="card">
+
+            <h3>🚀 Export</h3>
+
+            <button id="downloadPNG">
+                Download PNG
+            </button>
+
+            <button id="downloadPDF">
+                Download PDF
+            </button>
+
+            <button id="printBtn">
+                Print
+            </button>
+
+        </div>
+
+    </aside>
 
 </div>
 
