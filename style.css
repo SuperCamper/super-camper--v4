@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Koulen&family=Moul&display=swap');
 
 *{
     margin:0;
@@ -7,102 +7,87 @@
 }
 
 body{
-    background:#e9ecef;
+    background:#e5e5e5;
     font-family:'Battambang',sans-serif;
     overflow:hidden;
 }
 
 /* =========================
-   LAYOUT
+   MAIN LAYOUT
 ========================= */
 
 .container{
-    display:flex;
-    width:100%;
+    display:grid;
+    grid-template-columns:300px 1fr 320px;
     height:100vh;
 }
 
 /* =========================
-   SIDEBAR
+   LEFT PANEL
 ========================= */
 
 .sidebar{
-    width:320px;
     background:#fff;
     padding:20px;
     overflow-y:auto;
     border-right:1px solid #ddd;
 }
 
-.sidebar h2{
+.sidebar h1{
     margin-bottom:20px;
-}
-
-.sidebar h3{
-    margin-top:20px;
-    margin-bottom:10px;
+    font-size:28px;
 }
 
 .sidebar label{
     display:block;
-    margin-top:10px;
-    margin-bottom:4px;
-    font-weight:600;
+    margin-top:12px;
+    margin-bottom:5px;
+    font-weight:700;
 }
 
 .sidebar input,
 .sidebar textarea,
 .sidebar select{
     width:100%;
-    padding:8px;
+    padding:10px;
     border:1px solid #ccc;
-    border-radius:6px;
+    border-radius:8px;
 }
 
 .sidebar textarea{
-    resize:vertical;
-}
-
-.sidebar hr{
-    margin:20px 0;
+    resize:none;
 }
 
 .sidebar button{
     width:100%;
-    margin-top:12px;
     padding:12px;
     border:none;
     border-radius:8px;
-    cursor:pointer;
+    color:#fff;
     font-weight:bold;
+    cursor:pointer;
+    margin-top:12px;
 }
 
 #downloadPNG{
     background:#28a745;
-    color:white;
 }
 
 #printBtn{
-    background:#0d6efd;
-    color:white;
+    background:#007bff;
 }
 
 /* =========================
-   PREVIEW AREA
+   CENTER PREVIEW
 ========================= */
 
 .preview-wrapper{
-    flex:1;
     display:flex;
     justify-content:center;
     align-items:flex-start;
+    padding:20px;
     overflow:auto;
-    padding:30px;
 }
-
-/* =========================
-   CERTIFICATE A5
-========================= */
 
 #certificate{
     position:relative;
@@ -110,108 +95,138 @@ body{
     width:794px;
     height:1123px;
 
-    background-image:url("ក្រហម.png");
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
 
     box-shadow:0 0 20px rgba(0,0,0,.2);
-
-    user-select:none;
 }
 
 /* =========================
-   PHOTO
+   RIGHT PANEL
+========================= */
+
+.editor-panel{
+    background:#fff;
+    padding:20px;
+    overflow-y:auto;
+    border-left:1px solid #ddd;
+}
+
+.editor-panel h2{
+    margin-bottom:15px;
+}
+
+.editor-panel label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:5px;
+    font-weight:700;
+}
+
+.editor-panel input,
+.editor-panel select{
+    width:100%;
+}
+
+.editor-panel hr{
+    margin:20px 0;
+}
+
+/* =========================
+   CERTIFICATE ELEMENTS
 ========================= */
 
 .photo-preview{
     position:absolute;
 
-    top:380px;
-    left:50%;
+    width:120px;
+    height:150px;
 
-    transform:translateX(-50%);
+    left:337px;
+    top:350px;
 
-    width:140px;
-    height:180px;
+    border-radius:10px;
+    border:4px solid white;
 
     object-fit:cover;
 
-    border:4px solid white;
-    border-radius:10px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.3);
-
     cursor:move;
-    z-index:10;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
 }
 
-/* =========================
-   DRAGGABLE TEXT
-========================= */
-
-.editable{
+.name-preview{
     position:absolute;
 
-    color:white;
-
-    text-align:center;
-
-    cursor:move;
-
-    text-shadow:
-        2px 2px 5px rgba(0,0,0,.6);
-
-    z-index:20;
-}
-
-/* =========================
-   NAME
-========================= */
-
-#namePreview{
-    top:600px;
     left:50%;
+    top:560px;
+
     transform:translateX(-50%);
 
     width:80%;
 
-    font-size:58px;
+    text-align:center;
+
+    color:white;
+
+    font-size:60px;
     font-weight:bold;
+
+    text-shadow:
+    0 2px 5px rgba(0,0,0,.5);
+
+    cursor:move;
 }
 
-/* =========================
-   REASON
-========================= */
+.reason-preview{
+    position:absolute;
 
-#reasonPreview{
-    top:760px;
     left:50%;
+    top:720px;
+
     transform:translateX(-50%);
 
-    width:70%;
+    width:80%;
+
+    text-align:center;
+
+    color:white;
 
     font-size:28px;
-    line-height:1.6;
+    line-height:1.8;
+
+    text-shadow:
+    0 2px 5px rgba(0,0,0,.5);
+
+    cursor:move;
 }
 
-/* =========================
-   GROUP
-========================= */
+.group-preview{
+    position:absolute;
 
-#groupPreview{
-    top:910px;
     left:50%;
+    top:870px;
+
     transform:translateX(-50%);
 
-    width:60%;
+    width:80%;
 
-    font-size:38px;
+    text-align:center;
+
+    color:white;
+
+    font-size:36px;
     font-weight:bold;
+
+    text-shadow:
+    0 2px 5px rgba(0,0,0,.5);
+
+    cursor:move;
 }
 
 /* =========================
-   RANGE
+   RANGE STYLE
 ========================= */
 
 input[type=range]{
@@ -222,14 +237,13 @@ input[type=range]{
    MOBILE
 ========================= */
 
-@media(max-width:1200px){
+@media(max-width:1400px){
 
-    .preview-wrapper{
-        justify-content:flex-start;
+    .container{
+        grid-template-columns:280px 1fr;
     }
 
-    #certificate{
-        transform:scale(.65);
-        transform-origin:top left;
+    .editor-panel{
+        display:none;
     }
 }
